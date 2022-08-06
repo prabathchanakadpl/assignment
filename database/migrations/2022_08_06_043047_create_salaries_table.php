@@ -14,11 +14,11 @@ return new class extends Migration
     public function up()
     {
         Schema::create('salaries', function (Blueprint $table) {
+            $table->id();
             $table->string('emp_no',255);
             $table->decimal('salary',10,2)->default(0);
             $table->date('from_date');
             $table->date('to_date');
-            $table->primary(['emp_no','from_date']);
             $table->timestamps();
         });
     }

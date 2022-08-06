@@ -27,7 +27,7 @@
                                             <label>First Name</label>
                                             <input type="text" class="form-control @error('first_name') is-invalid @enderror"
                                                    placeholder="Enter First Name" name="first_name" id="first_name"
-                                                   required="required" form="employee_create_form"/>
+                                                   required="required" form="employee_create_form" value="{{old('first_name')}}"/>
                                             <x-invalid_feedback field="first_name" />
                                         </div>
                                     </div>
@@ -36,7 +36,7 @@
                                             <label>Last Name</label>
                                             <input type="text" class="form-control @error('last_name') is-invalid @enderror"
                                                    placeholder="Enter Last Name" name="last_name" id="last_name"
-                                                   required="required" form="employee_create_form"/>
+                                                   required="required" form="employee_create_form" value="{{old('last_name')}}"/>
                                             <x-invalid_feedback field="last_name" />
                                         </div>
                                     </div>
@@ -45,7 +45,7 @@
                                             <label>Birth Date</label>
                                             <input type="text" class="datepicker form-control @error('birth_date') is-invalid @enderror"
                                                    placeholder="Enter Date of Birth" name="birth_date" id="birth_date"
-                                                   required="required" form="employee_create_form"/>
+                                                   required="required" form="employee_create_form" value="{{old('birth_date')}}"/>
                                             <x-invalid_feedback field="birth_date" />
                                         </div>
                                     </div>
@@ -55,7 +55,7 @@
                                             <label>Hire Date</label>
                                             <input type="text" class="datepicker form-control @error('hire_date') is-invalid @enderror"
                                                    placeholder="Enter Hire Date" name="hire_date" id="hire_date"
-                                                   required="required" form="employee_create_form"/>
+                                                   required="required" form="employee_create_form" value="{{old('hire_date')}}"/>
                                             <x-invalid_feedback field="hire_date" />
                                         </div>
                                     </div>
@@ -65,9 +65,11 @@
                                             <div class="mt-2">
                                                 <input type="radio" class="radio @error('gender') is-invalid @enderror"
                                                        name="gender" id="gender" required="required" value="Male"
+                                                       {{old('gender') === 'Male'?'checked':''}}
                                                        form="employee_create_form"/> Male
                                                 <input type="radio" class="radio @error('gender') is-invalid @enderror"
                                                        name="gender" id="gender" required="required" value="Female"
+                                                       {{old('gender') === 'Female'?'checked':''}}
                                                        form="employee_create_form"/> Female
                                                 <x-invalid_feedback field="gender" />
                                             </div>

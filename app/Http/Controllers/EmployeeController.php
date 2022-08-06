@@ -47,6 +47,7 @@ class EmployeeController extends Controller
      */
     public function store(EmployeeCreateRequest $request): RedirectResponse
     {
+        //dd($request);
        try {
            DB::beginTransaction();
            $this->employeeService->store($request);
@@ -55,7 +56,8 @@ class EmployeeController extends Controller
 
        } catch (\Throwable $exception) {
            DB::rollBack();
-           return back()->with('error_string','Employee Insertion Failed!!!');
+           return back()->with('error_string',$exception->getMessage());
+//           return back()->with('error_string','Employee Insertion Failed!!!');
        }
     }
 

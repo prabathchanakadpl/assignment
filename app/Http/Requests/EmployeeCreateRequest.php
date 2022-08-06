@@ -31,7 +31,7 @@ class EmployeeCreateRequest extends FormRequest
             'first_name' => 'required|min:5',
             'last_name' => 'required|min:5',
             'gender' => 'required',
-            'date_of_birth' => 'required|date|before:' . $before18Years,
+            'birth_date' => 'required|date|before:' . $before18Years,
             'hire_date' => 'required|date',
             'designations' => 'array|min:1',
             'salaries' => 'array|min:1',
