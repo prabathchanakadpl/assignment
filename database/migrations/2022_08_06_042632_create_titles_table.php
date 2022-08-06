@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('title');
             $table->date('from_date');
             $table->primary(['emp_no','title','from_date']);
-            $table->date('last_date');
+            $table->date('to_date');
             $table->timestamps();
         });
     }

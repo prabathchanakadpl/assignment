@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\EmployeeCreateRequest;
 use App\Services\EmployeeService;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class EmployeeController extends Controller
 {
@@ -39,12 +42,21 @@ class EmployeeController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param EmployeeCreateRequest $request
+     * @return RedirectResponse
      */
-    public function store(Request $request)
+    public function store(EmployeeCreateRequest $request): RedirectResponse
     {
-        dd($request);
+       try {
+           DB::beginTransaction();
+           $this->employeeService->store($request);
+           DB::commit();
+           return back()->with('success', 'Employee Successfully Inserted');
+
+       } catch (\Throwable $exception) {
+           DB::rollBack();
+           return back()->with('error_string','Employee Insertion Failed!!!');
+       }
     }
 
     /**
@@ -72,7 +84,7 @@ class EmployeeController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */

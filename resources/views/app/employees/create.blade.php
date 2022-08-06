@@ -13,6 +13,8 @@
             </div>
         </div>
         <div class="card-body">
+            @include('layouts.partials.messages')
+            <br/>
             <div class="card">
                 <div class="card-body">
                     <form action="{{route('employees.store')}}" method="POST" id="employee_create_form">
