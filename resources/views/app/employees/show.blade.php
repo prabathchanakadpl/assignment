@@ -86,6 +86,9 @@
                 </div>
             </div>
         </div>
+        <div class="card-footer">
+            <a href="{{route('employees.edit', $employee)}}" class="btn btn-warning text-dark" role="button">Edit</a>
+        </div>
     </div>
 @endsection
 

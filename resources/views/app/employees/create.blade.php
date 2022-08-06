@@ -45,7 +45,8 @@
                                             <label>Birth Date</label>
                                             <input type="text" class="datepicker form-control @error('birth_date') is-invalid @enderror"
                                                    placeholder="Enter Date of Birth" name="birth_date" id="birth_date"
-                                                   required="required" form="employee_create_form" value="{{old('birth_date')}}"/>
+                                                   required="required" form="employee_create_form"
+                                                   value="{{old('birth_date')}}" autocomplete="off"/>
                                             <x-invalid_feedback field="birth_date" />
                                         </div>
                                     </div>
@@ -55,7 +56,8 @@
                                             <label>Hire Date</label>
                                             <input type="text" class="datepicker form-control @error('hire_date') is-invalid @enderror"
                                                    placeholder="Enter Hire Date" name="hire_date" id="hire_date"
-                                                   required="required" form="employee_create_form" value="{{old('hire_date')}}"/>
+                                                   required="required" form="employee_create_form"
+                                                   value="{{old('hire_date')}}" autocomplete="off"/>
                                             <x-invalid_feedback field="hire_date" />
                                         </div>
                                     </div>
@@ -87,21 +89,21 @@
                                         <div class="col-sm-4">
                                             <div class="form-group">
                                                 <label>Title</label>
-                                                <input type="text" class="form-control"
+                                                <input type="text" class="form-control" autocomplete="off"
                                                        placeholder="Enter Title" id="title"/>
                                             </div>
                                         </div>
                                         <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label>From Date</label>
-                                                <input type="text" class="datepicker form-control"
+                                                <input type="text" class="datepicker form-control" autocomplete="off"
                                                        placeholder="Enter From Date" id="title_from_date" />
                                             </div>
                                         </div>
                                         <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label>To Date</label>
-                                                <input type="text" class="datepicker form-control"
+                                                <input type="text" class="datepicker form-control" autocomplete="off"
                                                        placeholder="Enter To Date" id="title_to_date"/>
                                             </div>
                                         </div>
@@ -141,21 +143,21 @@
                                         <div class="col-sm-4">
                                             <div class="form-group">
                                                 <label>Salary</label>
-                                                <input type="number" class="form-control"
+                                                <input type="number" class="form-control" autocomplete="off"
                                                        placeholder="Enter Salary" id="salary"/>
                                             </div>
                                         </div>
                                         <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label>From Date</label>
-                                                <input type="text" class="datepicker form-control"
+                                                <input type="text" class="datepicker form-control" autocomplete="off"
                                                        placeholder="Enter From Date" id="salary_from_date" />
                                             </div>
                                         </div>
                                         <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label>To Date</label>
-                                                <input type="text" class="datepicker form-control"
+                                                <input type="text" class="datepicker form-control" autocomplete="off"
                                                        placeholder="Enter To Date" id="salary_to_date"/>
                                             </div>
                                         </div>
