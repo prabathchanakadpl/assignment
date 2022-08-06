@@ -3,25 +3,34 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\EmployeeCreateRequest;
+use App\Models\Employee;
+use App\Models\Title;
 use App\Services\EmployeeService;
+use App\Services\SalaryService;
+use App\Services\TitleService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 
 class EmployeeController extends Controller
 {
+    public $titleService;
+    public $salaryService;
     public $employeeService;
 
    public function __construct()
    {
+       $this->titleService    = new TitleService();
+       $this->salaryService   = new SalaryService();
        $this->employeeService = new EmployeeService();
    }
 
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index(): View
     {
@@ -32,7 +41,7 @@ class EmployeeController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create(): View
     {
@@ -47,7 +56,6 @@ class EmployeeController extends Controller
      */
     public function store(EmployeeCreateRequest $request): RedirectResponse
     {
-        //dd($request);
        try {
            DB::beginTransaction();
            $this->employeeService->store($request);
@@ -56,27 +64,29 @@ class EmployeeController extends Controller
 
        } catch (\Throwable $exception) {
            DB::rollBack();
-           return back()->with('error_string',$exception->getMessage());
-//           return back()->with('error_string','Employee Insertion Failed!!!');
+           //return back()->with('error_string',$exception->getMessage());
+           return back()->with('error_string','Employee Insertion Failed!!!');
        }
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  Employee $empoloyee
+     * @return Response
      */
-    public function show($id)
+    public function show(Employee $employee): View
     {
-        //
+        $titles   = $this->titleService->findTitlesByEmpNo($employee->emp_no);
+        $salaries = $this->salaryService->findSalariesByEmpNo($employee->emp_no);
+        return view('app.employees/show',compact('employee','titles', 'salaries'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function edit($id)
     {
@@ -88,7 +98,7 @@ class EmployeeController extends Controller
      *
      * @param Request $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function update(Request $request, $id)
     {
@@ -99,7 +109,7 @@ class EmployeeController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function destroy($id)
     {
