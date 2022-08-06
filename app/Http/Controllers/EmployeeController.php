@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\EmployeeCreateRequest;
+use App\Http\Requests\EmployeeUpdateRequest;
 use App\Models\Employee;
 use App\Models\Title;
 use App\Services\EmployeeService;
@@ -79,40 +80,62 @@ class EmployeeController extends Controller
     {
         $titles   = $this->titleService->findTitlesByEmpNo($employee->emp_no);
         $salaries = $this->salaryService->findSalariesByEmpNo($employee->emp_no);
-        return view('app.employees/show',compact('employee','titles', 'salaries'));
+        return view('app.employees.show',compact('employee','titles', 'salaries'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return Response
+     * @param Employee $employee
+     * @return View
      */
-    public function edit($id)
+    public function edit(Employee $employee): View
     {
-        //
+        $titles   = $this->titleService->findTitlesByEmpNo($employee->emp_no);
+        $salaries = $this->salaryService->findSalariesByEmpNo($employee->emp_no);
+        return view('app.employees.edit',compact('employee','titles', 'salaries'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param  int  $id
-     * @return Response
+     * @param  Employee $employee
+     * @return RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(EmployeeUpdateRequest $request, Employee $employee): RedirectResponse
     {
-        //
+        try {
+            DB::beginTransaction();
+            $this->employeeService->update($request, $employee);
+            DB::commit();
+            return back()->with('success', 'Employee Successfully Updated');
+
+        } catch (\Throwable $exception) {
+            DB::rollBack();
+            //return back()->with('error_string',$exception->getMessage());
+            return back()->with('error_string','Employee Updating Failed!!!');
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return Response
+     * @param Employee $employee
+     * @return RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(Employee $employee): RedirectResponse
     {
-        //
+        try {
+            DB::beginTransaction();
+            $this->employeeService->delete($employee);
+            DB::commit();
+            return back()->with('success', 'Employee Successfully Deleted');
+
+        } catch (\Throwable $exception) {
+            DB::rollBack();
+            //return back()->with('error_string',$exception->getMessage());
+            return back()->with('error_string','Employee Deletion Failed!!!');
+        }
     }
 }

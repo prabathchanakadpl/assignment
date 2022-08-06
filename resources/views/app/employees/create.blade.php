@@ -219,7 +219,7 @@
                     tr += `<td><input type="text" name="designations[${current_timestamp}][title]" value="${title}" class="form-control"/></td>`
                     tr += `<td><input type="date" name="designations[${current_timestamp}][from_date]" value="${title_from_date}" class="form-control"/></td>`
                     tr += `<td><input type="date" name="designations[${current_timestamp}][to_date]" value="${title_to_date}" class="form-control"/></td>`
-                    tr += `<td><button type="button" class="btn btn-danger" onclick="removeTitleRow(this);">Remove</button></td>`
+                    tr += `<td><button type="button" class="btn btn-danger" onclick="removeRow(this);">Remove</button></td>`
                 $('#tbl_designation').append(tr);
                 clearDesignationForm();
             }else{
@@ -238,7 +238,7 @@
                 tr += `<td><input type="text" name="salaries[${current_timestamp}][salary]" value="${salary}" class="form-control"/></td>`
                 tr += `<td><input type="date" name="salaries[${current_timestamp}][from_date]" value="${salary_from_date}" class="form-control"/></td>`
                 tr += `<td><input type="date" name="salaries[${current_timestamp}][to_date]" value="${salary_to_date}" class="form-control"/></td>`
-                tr += `<td><button type="button" class="btn btn-danger" onclick="removeTitleRow(this);">Remove</button></td>`
+                tr += `<td><button type="button" class="btn btn-danger" onclick="removeRow(this);">Remove</button></td>`
                 $('#tbl_salary').append(tr);
                 clearSalaryForm();
             }else{
@@ -246,7 +246,7 @@
             }
         }
 
-        function removeTitleRow(element){
+        function removeRow(element){
             element.closest('tr').remove();
         }
 

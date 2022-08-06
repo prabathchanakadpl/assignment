@@ -13,6 +13,8 @@
             </div>
         </div>
         <div class="card-body">
+            @include('layouts.partials.messages')
+            <br/>
             <div class="card">
                 <div class="card-body">
                     <table class="table table-striped">
@@ -38,8 +40,19 @@
                                        <td>{{$employee->gender}}</td>
                                        <td>{{$employee->hire_date}}</td>
                                        <td>
+                                           @include('layouts.partials.delete_form',  [ "form_id"=>"form_delete_".$employee->id, "action"=>route("employees.destroy",$employee)])
                                            <div class="btn-group">
-                                               <a class="btn btn-light shadow" href="{{route('employees.show',$employee)}}">View</a>
+                                               <a class="btn btn-light shadow"
+                                                  href="{{route('employees.show',$employee)}}"
+                                                title="View Employee">View</a>
+                                               <a class="btn btn-warning text-dark shadow"
+                                                  href="{{route('employees.edit',$employee)}}"
+                                                  title="Edit Employee">Edit</a>
+                                               <button id="btnDelete" class="btn btn-danger shadow"
+                                                       type="submit"
+                                                       form="form_delete_{{$employee->id}}"
+                                                       title="Delete Employee With Related Records"> Delete
+                                               </button>
                                            </div>
                                        </td>
                                    </tr>
